@@ -22,7 +22,7 @@ struct cell
 	double f, g, h;
 };
 
-// A Utility Function to check whether given cell (row, col)
+//  Function to check whether given cell (row, col)
 // is a valid cell or not.
 bool isValid(int row, int col)
 {
@@ -43,7 +43,7 @@ bool isUnBlocked(int grid[][COL], int row, int col)
 		return (false);
 }
 
-// A Utility Function to check whether destination cell has
+//  Function to check whether destination cell has
 // been reached or not
 bool isDestination(int row, int col, Pair dest)
 {
@@ -53,7 +53,7 @@ bool isDestination(int row, int col, Pair dest)
 		return (false);
 }
 
-// A Utility Function to calculate the 'h' heuristics.
+//  Function to calculate the 'h' heuristics.
 double calculateHValue(int row, int col, Pair dest)
 {
 	// Return using the distance formula
@@ -61,7 +61,7 @@ double calculateHValue(int row, int col, Pair dest)
 						+ (col-dest.second)*(col-dest.second)));
 }
 
-// A Utility Function to trace the path from the source
+//  Function to trace the path from the source
 // to destination
 void tracePath(cell cellDetails[][COL], Pair dest)
 {
@@ -126,9 +126,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 		return;
 	}
 
-	// Create a closed list and initialise it to false which means
-	// that no cell has been included yet
-	// This closed list is implemented as a boolean 2D array
+	// Create a closed list and initialise it to false 
 	bool closedList[ROW][COL];
 	memset(closedList, false, sizeof (closedList));
 
@@ -158,13 +156,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 	cellDetails[i][j].parent_i = i;
 	cellDetails[i][j].parent_j = j;
 
-	/*
-	Create an open list having information as-
-	<f, <i, j>>
-	where f = g + h,
-	and i, j are the row and column index of that cell
-	Note that 0 <= i <= ROW-1 & 0 <= j <= COL-1
-	This open list is implenented as a set of pair of pair.*/
+	
 	set<pPair> openList;
 
 	// Put the starting cell on the open list and set its
@@ -187,26 +179,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 		j = p.second.second;
 		closedList[i][j] = true;
 
-	/*
-		Generating all the 8 successor of this cell
-
-			N.W N N.E
-			\ | /
-			\ | /
-			W----Cell----E
-				/ | \
-			/ | \
-			S.W S S.E
-
-		Cell-->Popped Cell (i, j)
-		N --> North	 (i-1, j)
-		S --> South	 (i+1, j)
-		E --> East	 (i, j+1)
-		W --> West		 (i, j-1)
-		N.E--> North-East (i-1, j+1)
-		N.W--> North-West (i-1, j-1)
-		S.E--> South-East (i+1, j+1)
-		S.W--> South-West (i+1, j-1)*/
+	
 
 		// To store the 'g', 'h' and 'f' of the 8 successors
 		double gNew, hNew, fNew;
@@ -238,14 +211,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue (i-1, j, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
-				// the open list. Make the current square
-				// the parent of this square. Record the
-				// f, g, and h costs of the square cell
-				//			 OR
-				// If it is on the open list already, check
-				// to see if this path to that square is better,
-				// using 'f' cost as the measure.
+
 				if (cellDetails[i-1][j].f == FLT_MAX ||
 						cellDetails[i-1][j].f > fNew)
 				{
@@ -289,7 +255,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i+1, j, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
+				// If it isnâ€™t on the open list, add it to
 				// the open list. Make the current square
 				// the parent of this square. Record the
 				// f, g, and h costs of the square cell
@@ -339,7 +305,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue (i, j+1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
+				// If it isnâ€™t on the open list, add it to
 				// the open list. Make the current square
 				// the parent of this square. Record the
 				// f, g, and h costs of the square cell
@@ -391,7 +357,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i, j-1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
+				// If it isnâ€™t on the open list, add it to
 				// the open list. Make the current square
 				// the parent of this square. Record the
 				// f, g, and h costs of the square cell
@@ -443,7 +409,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i-1, j+1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
+				// If it isnâ€™t on the open list, add it to
 				// the open list. Make the current square
 				// the parent of this square. Record the
 				// f, g, and h costs of the square cell
@@ -495,14 +461,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i-1, j-1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
-				// the open list. Make the current square
-				// the parent of this square. Record the
-				// f, g, and h costs of the square cell
-				//			 OR
-				// If it is on the open list already, check
-				// to see if this path to that square is better,
-				// using 'f' cost as the measure.
+				
 				if (cellDetails[i-1][j-1].f == FLT_MAX ||
 						cellDetails[i-1][j-1].f > fNew)
 				{
@@ -519,14 +478,14 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 
 		//----------- 7th Successor (South-East) ------------
 
-		// Only process this cell if this is a valid one
+		
 		if (isValid(i+1, j+1) == true)
 		{
 			// If the destination cell is the same as the
 			// current successor
 			if (isDestination(i+1, j+1, dest) == true)
 			{
-				// Set the Parent of the destination cell
+				
 				cellDetails[i+1][j+1].parent_i = i;
 				cellDetails[i+1][j+1].parent_j = j;
 				printf ("The destination cell is found\n");
@@ -535,8 +494,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				return;
 			}
 
-			// If the successor is already on the closed
-			// list or if it is blocked, then ignore it.
+			
 			// Else do the following
 			else if (closedList[i+1][j+1] == false &&
 					isUnBlocked(grid, i+1, j+1) == true)
@@ -545,14 +503,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i+1, j+1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
-				// the open list. Make the current square
-				// the parent of this square. Record the
-				// f, g, and h costs of the square cell
-				//			 OR
-				// If it is on the open list already, check
-				// to see if this path to that square is better,
-				// using 'f' cost as the measure.
+				
 				if (cellDetails[i+1][j+1].f == FLT_MAX ||
 						cellDetails[i+1][j+1].f > fNew)
 				{
@@ -597,14 +548,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 				hNew = calculateHValue(i+1, j-1, dest);
 				fNew = gNew + hNew;
 
-				// If it isn’t on the open list, add it to
-				// the open list. Make the current square
-				// the parent of this square. Record the
-				// f, g, and h costs of the square cell
-				//			 OR
-				// If it is on the open list already, check
-				// to see if this path to that square is better,
-				// using 'f' cost as the measure.
+				
 				if (cellDetails[i+1][j-1].f == FLT_MAX ||
 						cellDetails[i+1][j-1].f > fNew)
 				{
@@ -621,11 +565,6 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 			}
 		}
 	}
-
-	// When the destination cell is not found and the open
-	// list is empty, then we conclude that we failed to
-	// reach the destiantion cell. This may happen when the
-	// there is no way to destination cell (due to blockages)
 	if (foundDest == false)
 		printf("Failed to find the Destination Cell\n");
 
@@ -636,9 +575,7 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 // Driver program to test above function
 int main()
 {
-	/* Description of the Grid-
-	1--> The cell is not blocked
-	0--> The cell is blocked */
+	
 	int grid[ROW][COL] =
 	{
 		{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
